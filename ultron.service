@@ -1,0 +1,16 @@
+[Unit]
+Description=Ultron Core Service Manager
+After=network.target
+
+[Service]
+Type=simple
+User=USUARIO_SISTEMA
+WorkingDirectory=/usr/bin/ultron
+ExecStartPre=/usr/bin/bash /usr/bin/ultron/scripts/setup_robots.sh
+ExecStart=/usr/bin/node /usr/bin/ultron/server.js
+Restart=always
+RestartSec=5
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=multi-user.target
