@@ -6,10 +6,12 @@ After=network.target
 Type=simple
 User=USUARIO_SISTEMA
 WorkingDirectory=/usr/bin/ultron
-ExecStartPre=/usr/bin/bash /usr/bin/ultron/scripts/setup_robots.sh
+# Busca o setup na raiz, conforme sua imagem do GitHub
+ExecStartPre=/usr/bin/bash /usr/bin/ultron/setup_robots.sh
 ExecStart=/usr/bin/node /usr/bin/ultron/server.js
 Restart=always
-RestartSec=5
+RestartSec=10
+Environment=NODE_ENV=production
 Environment=DISPLAY=:0
 
 [Install]
