@@ -7,7 +7,6 @@ IP_LOCAL=$(hostname -I | awk '{print $1}')
 
 sudo mkdir -p $DIRETORIO_DESTINO
 sudo mkdir -p $DIRETORIO_DESTINO/robots
-sudo mkdir -p $DIRETORIO_DESTINO/scripts
 
 cd /tmp
 sudo rm -rf ultron-service
@@ -16,13 +15,14 @@ cd ultron-service
 
 sudo cp -r ./* $DIRETORIO_DESTINO/
 sudo chown -R $USUARIO_ATUAL:$USUARIO_ATUAL $DIRETORIO_DESTINO
-sudo chmod +x $DIRETORIO_DESTINO/scripts/setup_robots.sh
+sudo chmod +x $DIRETORIO_DESTINO/setup_robots.sh
 
 cp ultron.service ultron.service.tmp
 sed -i "s|USUARIO_SISTEMA|$USUARIO_ATUAL|g" ultron.service.tmp
 sudo mv ultron.service.tmp /etc/systemd/system/ultron.service
 
 sudo ufw allow 3001/tcp
+sudo ufw allow 3000/tcp
 echo "$IP_LOCAL" > $DIRETORIO_DESTINO/ip_servidor.txt
 
 sudo systemctl daemon-reload
