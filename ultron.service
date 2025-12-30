@@ -1,14 +1,13 @@
 [Unit]
-Description=Ultron Core Service Manager
+Description=Ultron Core and IA Service Manager
 After=network.target
 
 [Service]
 Type=simple
 User=USUARIO_SISTEMA
 WorkingDirectory=/usr/bin/ultron
-# Busca o setup na raiz, conforme sua imagem do GitHub
 ExecStartPre=/usr/bin/bash /usr/bin/ultron/setup_robots.sh
-ExecStart=/usr/bin/node /usr/bin/ultron/server.js
+ExecStart=/usr/bin/node /usr/bin/ultron/server.js & /usr/bin/node /usr/bin/ultron/index.js
 Restart=always
 RestartSec=10
 Environment=NODE_ENV=production
