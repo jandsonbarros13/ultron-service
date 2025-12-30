@@ -12,8 +12,11 @@ if ! command -v ollama &> /dev/null; then
     curl -fsSL https://ollama.com/install.sh | sh
 fi
 
-ollama serve > /dev/null 2>&1 &
-sleep 5
+if ! pgrep -x "ollama" > /dev/null; then
+    ollama serve > /dev/null 2>&1 &
+    sleep 10
+fi
+
 ollama pull llama3
 
 if ! python3 -c "import selenium, docker" &> /dev/null; then
